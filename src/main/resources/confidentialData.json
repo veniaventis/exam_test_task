@@ -1,0 +1,6 @@
+{
+  "uiLogin": "login",
+  "uiPassword": "password",
+  "dbLogin":"root",
+  "dbPassword":"root"
+}
