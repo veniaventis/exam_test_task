@@ -9,10 +9,8 @@ public abstract class BaseTest {
 
     @BeforeMethod
     public void setUp(){
-        String url = ConfigUtil.getSettingsData("uiUrl");
         browser = AqualityServices.getBrowser();
         browser.maximize();
-        browser.goTo(url);
     }
 
     @AfterMethod

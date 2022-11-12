@@ -3,8 +3,8 @@
   "isRemote": false,
   "remoteConnectionUrl": "http://localhost:4444/wd/hub",
   "isElementHighlightEnabled" : true,
-  "uiUrl": "localhost:8080/web/",
-  "apiUrl": "http://localhost:8080/api/",
+  "uiUrl": "http://%s:%s@localhost:8080/web/",
+  "apiUrl": "http://localhost:8080/api/%s",
   "dbUrl": "jdbc:mysql://localhost:3307/union_reporting?serverTimezone=GMT%2B5&useSSL=false",
 
   "driverSettings": {
