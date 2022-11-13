@@ -20,7 +20,7 @@ public class TestTableForm extends Form {
     private ILabel lblTestName;
     private final IButton btnAllTests = getElementFactory().getButton(By.xpath("//div[contains(@class,'container')]/ul/li[1]/a[@href]"), "All tests tab");
 
-    protected TestTableForm() {
+    public TestTableForm() {
         super(By.xpath("//table//parent::div[contains(@class,'panel-default')]"), "Test Table form");
     }
 
