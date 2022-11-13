@@ -1,11 +1,9 @@
 import api.ApiRequest;
 import aquality.selenium.core.logging.Logger;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 import constants.CommonConstant;
 import constants.DataBaseConstant;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.http.HttpStatus;
 import org.openqa.selenium.Cookie;
 import org.testng.Assert;
@@ -13,16 +11,12 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobject.MainPage;
 import pageobject.ProjectPage;
-import pageobject.forms.AddProjectForm;
 import utils.CompareUtil;
 import utils.ConfigUtil;
 import utils.CookieUtils;
 import utils.DataBaseUtils;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static api.ApiRequest.RESPONSE_JSON;
 
@@ -68,9 +62,9 @@ public class UnionUIDbTest extends BaseTest {
 
         String randomProjectName = RandomStringUtils.randomAlphabetic(CommonConstant.RANDOM_OBJ_LENGTH);
         mainPage.getAddProjectForm().inputProjectNameAndSave(randomProjectName);
-
-
+        Assert.assertTrue(mainPage.getAddProjectForm().isDisplayedAlert(), "Success Alert doesn't displayed");
+        mainPage.getAddProjectForm().closeAlertByJSMethod();
+        Assert.assertTrue(mainPage.getAddProjectForm().isNotDisplayed(), "Success alert actually present");
 
     }
-
 }

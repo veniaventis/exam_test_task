@@ -1,14 +1,13 @@
 package pageobject.forms;
 
 import aquality.selenium.browser.AqualityServices;
-import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
-import aquality.selenium.elements.interfaces.IElement;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
+import constants.CommonConstant;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import utils.ConfigUtil;
 
 public class AddProjectForm extends Form {
     private final ILabel lblSuccessAlert = getElementFactory().getLabel(By.xpath("//form[@id='addProjectForm']//div[contains(@class,'alert-success')]"), "Success alert");
@@ -21,16 +20,23 @@ public class AddProjectForm extends Form {
     }
 
 
-
     public void inputProjectNameAndSave(String projectName) {
         projectNameInput.clearAndType(projectName);
         saveProjectBtn.click();
     }
 
+    public boolean isNotDisplayed() {
+        return this.state().waitForNotDisplayed();
+    }
+
     public boolean isDisplayedAlert() {
         return successAlert.state().waitForDisplayed();
     }
+
     public void switchToIframe() {
-        AqualityServices.getBrowser().getDriver().switchTo().frame("addProjectFrame");
+        AqualityServices.getBrowser().getDriver().switchTo().frame(CommonConstant.ADD_PROJECT_IFRAME_ID);
+    }
+    public void closeAlertByJSMethod(){
+        AqualityServices.getBrowser().executeScript(ConfigUtil.getTestData("closePopUp"));
     }
 }
