@@ -7,6 +7,7 @@ import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
 import constants.CommonConstant;
 import org.openqa.selenium.By;
+import utils.FileUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,5 +49,8 @@ public class TestTableForm extends Form {
     public List<String> getTestsNameList(){
         testsNameList = getElementFactory().findElements(By.xpath(testsNameListXPath), ElementType.LABEL);
         return testsNameList.stream().map(IElement::getText).collect(Collectors.toList());
+    }
+    public void makeScreenShot(){
+        FileUtil.makeAndSaveScreenShot();
     }
 }

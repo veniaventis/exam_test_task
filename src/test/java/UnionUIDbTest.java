@@ -1,4 +1,5 @@
-import api.ApiRequest;
+import models.ProjectTest;
+import queries.ApiRequest;
 import aquality.selenium.core.logging.Logger;
 import com.google.common.collect.Ordering;
 import constants.CommonConstant;
@@ -11,6 +12,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobject.MainPage;
 import pageobject.ProjectPage;
+import queries.DataBaseRequest;
 import utils.CompareUtil;
 import utils.ConfigUtil;
 import utils.CookieUtils;
@@ -18,7 +20,7 @@ import utils.DataBaseUtils;
 
 import java.util.List;
 
-import static api.ApiRequest.RESPONSE_JSON;
+import static queries.ApiRequest.RESPONSE_JSON;
 
 public class UnionUIDbTest extends BaseTest {
     private final String url = String.format(ConfigUtil.getSettingsData("uiUrl"),ConfigUtil.getConfidentialData("uiLogin"),ConfigUtil.getConfidentialData("uiPassword"));
@@ -65,6 +67,15 @@ public class UnionUIDbTest extends BaseTest {
         Assert.assertTrue(mainPage.getAddProjectForm().isDisplayedAlert(), "Success Alert doesn't displayed");
         mainPage.getAddProjectForm().closeAlertByJSMethod();
         Assert.assertTrue(mainPage.getAddProjectForm().isNotDisplayed(), "Success alert actually present");
+        browser.refresh();
+        Assert.assertTrue(mainPage.getProjectList().checkNewProject(randomProjectName), String.format("%s missing on the list", randomProjectName));
 
+
+        Logger.getInstance().info(String.format("Opening %s project and sending test with attachments to database", randomProjectName));
+        mainPage.getProjectList().clickProject(randomProjectName);
+        projectPage.getTestTable().makeScreenShot();
+        ProjectTest createTest = new DataBaseRequest().sendNewTest(projectPage.getTestTable().getOpenedProjectId());
+        DataBaseUtils.insertTest(createTest);
+        Assert.assertTrue(projectPage.getTestTable().idDisplayedTest(createTest.getName()), "Test wasn't added to project");
     }
 }
