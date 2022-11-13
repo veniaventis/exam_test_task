@@ -10,8 +10,7 @@ import java.io.IOException;
 
 public class FileUtil {
 
-    public static void makeAndSaveScreenShot() {
-        byte[] screenshotBytes = AqualityServices.getBrowser().getScreenshot();
+    public static void saveScreenShot(byte[] screenshotBytes) {
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
         try {

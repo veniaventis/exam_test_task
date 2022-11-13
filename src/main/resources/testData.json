@@ -1,5 +1,7 @@
 {
   "variant": 1,
   "projectName": "Nexage",
-  "closePopUp": "document.getElementById('addProjectForm').style.display='none';"
+  "closePopUp": "document.getElementById('addProjectForm').style.display='none';",
+  "imageExtension": "png",
+  "downloadImageName": "actualScreenshot"
 }

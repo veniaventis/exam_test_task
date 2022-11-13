@@ -1,4 +1,5 @@
 import models.ProjectTest;
+import pageobject.TestPage;
 import queries.ApiRequest;
 import aquality.selenium.core.logging.Logger;
 import com.google.common.collect.Ordering;
@@ -13,11 +14,9 @@ import org.testng.asserts.SoftAssert;
 import pageobject.MainPage;
 import pageobject.ProjectPage;
 import queries.DataBaseRequest;
-import utils.CompareUtil;
-import utils.ConfigUtil;
-import utils.CookieUtils;
-import utils.DataBaseUtils;
+import utils.*;
 
+import java.util.Base64;
 import java.util.List;
 
 import static queries.ApiRequest.RESPONSE_JSON;
@@ -73,9 +72,26 @@ public class UnionUIDbTest extends BaseTest {
 
         Logger.getInstance().info(String.format("Opening %s project and sending test with attachments to database", randomProjectName));
         mainPage.getProjectList().clickProject(randomProjectName);
-        projectPage.getTestTable().makeScreenShot();
+        byte[] screenshotBytes = browser.getScreenshot();
+        projectPage.getTestTable().saveScreenShot(screenshotBytes);
         ProjectTest createTest = new DataBaseRequest().sendNewTest(projectPage.getTestTable().getOpenedProjectId());
         DataBaseUtils.insertTest(createTest);
         Assert.assertTrue(projectPage.getTestTable().idDisplayedTest(createTest.getName()), "Test wasn't added to project");
+
+        Logger.getInstance().info("Opening created test");
+        projectPage.getTestTable().openTest(createTest.getName());
+        TestPage testPage = new TestPage(createTest.getName());
+        Assert.assertTrue(testPage.state().isDisplayed(),"Test page hasn't been loaded");
+        softAssert.assertEquals(testPage.getProjectName(), randomProjectName, "Test project name in UI doesn't match with test project name where was added");
+        softAssert.assertEquals(testPage.getTestName(), createTest.getName(), "Test name in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getMethodName(), createTest.getMethodName(), "Test method name in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getStatusId(), createTest.getStatusId(), "Test status in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getStartTime(), createTest.getStartTime().toString(), "Test start time in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getEndTime(), createTest.getEndTime().toString(), "Test end time in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getEnv(), createTest.getEnv(), "Test environment in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getBrowserName(), createTest.getBrowser(), "Test browser in UI doesn't match with added test");
+        softAssert.assertEquals(testPage.getScreenshotLink(), Base64.getEncoder().encodeToString(screenshotBytes),
+                "Test screenshot in UI doesn't match with added attachment");
+        softAssert.assertAll();
     }
 }

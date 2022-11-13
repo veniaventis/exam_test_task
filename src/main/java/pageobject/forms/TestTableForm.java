@@ -50,7 +50,7 @@ public class TestTableForm extends Form {
         testsNameList = getElementFactory().findElements(By.xpath(testsNameListXPath), ElementType.LABEL);
         return testsNameList.stream().map(IElement::getText).collect(Collectors.toList());
     }
-    public void makeScreenShot(){
-        FileUtil.makeAndSaveScreenShot();
+    public void saveScreenShot(byte[] screenshot){
+        FileUtil.saveScreenShot(screenshot);
     }
 }
