@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 public class ResponseModel {
-        private int statusCode;
-        private String body;
+    private int statusCode;
+    private String body;
 
-        public ResponseModel(int statusCode, String body) {
-            this.statusCode = statusCode;
-            this.body = body;
-        }
+    public ResponseModel(int statusCode, String body) {
+        this.statusCode = statusCode;
+        this.body = body;
+    }
 }

@@ -9,7 +9,7 @@ public class ApiRequest {
     public static ResponseModel RESPONSE_JSON = null;
 
     public static String getToken(String variant) {
-         RESPONSE_JSON = ApiUtils.post(String.format(ConfigUtil.getSettingsData("apiUrl"), String.format(ApiConstant.GET_VARIANT_TOKEN, variant)));
-         return RESPONSE_JSON.getBody();
+        RESPONSE_JSON = ApiUtils.post(String.format(ConfigUtil.getSettingsData("apiUrl"), String.format(ApiConstant.GET_VARIANT_TOKEN, variant)));
+        return RESPONSE_JSON.getBody();
     }
 }

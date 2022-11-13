@@ -7,13 +7,13 @@ public abstract class BaseTest {
     protected Browser browser;
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp() {
         browser = AqualityServices.getBrowser();
         browser.maximize();
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown() {
         browser.quit();
     }
 }

@@ -1,6 +1,5 @@
 package utils;
 
-import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.core.logging.Logger;
 import constants.CommonConstant;
 

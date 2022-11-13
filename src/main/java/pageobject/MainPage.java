@@ -9,15 +9,18 @@ import pageobject.forms.ProjectListForm;
 public class MainPage extends Form {
 
     public MainPage() {
-        super(By.xpath("//div[contains(@class,'panel-default')]"),"Project Page");
+        super(By.xpath("//div[contains(@class,'panel-default')]"), "Project Page");
     }
-    public FooterForm getFooter(){
+
+    public FooterForm getFooter() {
         return new FooterForm();
     }
-    public ProjectListForm getProjectList(){
+
+    public ProjectListForm getProjectList() {
         return new ProjectListForm();
     }
-    public AddProjectForm getAddProjectForm(){
+
+    public AddProjectForm getAddProjectForm() {
         return new AddProjectForm();
     }
 }

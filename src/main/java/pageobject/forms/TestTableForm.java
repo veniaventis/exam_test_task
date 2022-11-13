@@ -18,39 +18,40 @@ public class TestTableForm extends Form {
     private final String testNameXPath = "//div[contains(@class,'container')]/child::div[contains(@class,'panel')][2]//tr/td/a[contains(text(),'%s')]";
     private List<ILabel> testsStartTimeList;
     private List<ILabel> testsNameList;
-    private ILabel lblTestName;
-    private final IButton btnAllTests = getElementFactory().getButton(By.xpath("//div[contains(@class,'container')]/ul/li[1]/a[@href]"), "All tests tab");
+    private ILabel testNameLbl;
+    private final IButton allTestsBtn = getElementFactory().getButton(By.xpath("//div[contains(@class,'container')]/ul/li[1]/a[@href]"), "All tests tab");
 
     public TestTableForm() {
         super(By.xpath("//table//parent::div[contains(@class,'panel-default')]"), "Test Table form");
     }
 
-    public int getOpenedProjectId(){
-        btnAllTests.state().waitForClickable();
-        String id = btnAllTests.getAttribute("href");
-        return Integer.parseInt(id.replace(CommonConstant.PROJECT_TESTS_WITHOUT_ID_URL,""));
+    public int getOpenedProjectId() {
+        allTestsBtn.state().waitForClickable();
+        String id = allTestsBtn.getAttribute("href");
+        return Integer.parseInt(id.replace(CommonConstant.PROJECT_TESTS_WITHOUT_ID_URL, ""));
     }
 
-    public boolean idDisplayedTest(String testName){
-        lblTestName = getElementFactory().getLabel(By.xpath(String.format(testNameXPath,testName)),"Test name label");
-        return lblTestName.state().waitForDisplayed();
+    public boolean idDisplayedTest(String testName) {
+        testNameLbl = getElementFactory().getLabel(By.xpath(String.format(testNameXPath, testName)), "Test name label");
+        return testNameLbl.state().waitForDisplayed();
     }
 
-    public void openTest(String testName){
-        lblTestName = getElementFactory().getLabel(By.xpath(String.format(testNameXPath,testName)),"Test name label");
-        lblTestName.click();
+    public void openTest(String testName) {
+        testNameLbl = getElementFactory().getLabel(By.xpath(String.format(testNameXPath, testName)), "Test name label");
+        testNameLbl.click();
     }
 
-    public List<String> getTestsStartTimeList(){
+    public List<String> getTestsStartTimeList() {
         testsStartTimeList = getElementFactory().findElements(By.xpath(testsStartTimeListXPath), ElementType.LABEL);
         return testsStartTimeList.stream().map(IElement::getText).collect(Collectors.toList());
     }
 
-    public List<String> getTestsNameList(){
+    public List<String> getTestsNameList() {
         testsNameList = getElementFactory().findElements(By.xpath(testsNameListXPath), ElementType.LABEL);
         return testsNameList.stream().map(IElement::getText).collect(Collectors.toList());
     }
-    public void saveScreenShot(byte[] screenshot){
+
+    public void saveScreenShot(byte[] screenshot) {
         FileUtil.saveScreenShot(screenshot);
     }
 }

@@ -22,18 +22,19 @@ import java.util.List;
 import static queries.ApiRequest.RESPONSE_JSON;
 
 public class UnionUIDbTest extends BaseTest {
-    private final String url = String.format(ConfigUtil.getSettingsData("uiUrl"),ConfigUtil.getConfidentialData("uiLogin"),ConfigUtil.getConfidentialData("uiPassword"));
+    private final String url = String.format(ConfigUtil.getSettingsData("uiUrl"), ConfigUtil.getConfidentialData("uiLogin"), ConfigUtil.getConfidentialData("uiPassword"));
     private final String variant = ConfigUtil.getTestData("variant");
     private final String project = ConfigUtil.getTestData("projectName");
     private final String cookieTokenParam = CommonConstant.TOKEN_COOKIE_PARAM;
     private final SoftAssert softAssert = new SoftAssert();
     private final MainPage mainPage = new MainPage();
     private final ProjectPage projectPage = new ProjectPage(project);
+
     @Test
     public void uiDbTest() {
         Logger.getInstance().info("Getting variant token");
         String token = ApiRequest.getToken(variant);
-        softAssert.assertNotNull(token,"Failed to get token");
+        softAssert.assertNotNull(token, "Failed to get token");
         Assert.assertEquals(RESPONSE_JSON.getStatusCode(), HttpStatus.SC_OK,
                 String.format("status code is not %d status is:%d", HttpStatus.SC_OK, RESPONSE_JSON.getStatusCode()));
 
@@ -48,12 +49,12 @@ public class UnionUIDbTest extends BaseTest {
         Logger.getInstance().info(String.format("Opening project %s", project));
         mainPage.getProjectList().clickProject(project);
         browser.waitForPageToLoad();
-        Assert.assertTrue(projectPage.state().isDisplayed(),String.format("%s project page nas not been loaded", project));
+        Assert.assertTrue(projectPage.state().isDisplayed(), String.format("%s project page nas not been loaded", project));
         Assert.assertTrue(Ordering.natural().reverse().isOrdered(projectPage.getTestTable().getTestsStartTimeList()), "Tests aren't sorted by descending date");
 
         String[][] arrayTableFromDB = DataBaseUtils.selectTable(String.format(DataBaseConstant.SELECT_TESTS_LIST_QUERY, project));
         List<String> testNameList = projectPage.getTestTable().getTestsNameList();
-        softAssert.assertTrue(CompareUtil.isEqual(testNameList, arrayTableFromDB), "Tests list from GUI doesn't equal tests list from DB" );
+        softAssert.assertTrue(CompareUtil.isEqual(testNameList, arrayTableFromDB), "Tests list from GUI doesn't equal tests list from DB");
 
         Logger.getInstance().info("Going on Project page and create a new project..");
         browser.goBack();
@@ -81,7 +82,7 @@ public class UnionUIDbTest extends BaseTest {
         Logger.getInstance().info("Opening created test");
         projectPage.getTestTable().openTest(createTest.getName());
         TestPage testPage = new TestPage(createTest.getName());
-        Assert.assertTrue(testPage.state().isDisplayed(),"Test page hasn't been loaded");
+        Assert.assertTrue(testPage.state().isDisplayed(), "Test page hasn't been loaded");
         softAssert.assertEquals(testPage.getProjectName(), randomProjectName, "Test project name in UI doesn't match with test project name where was added");
         softAssert.assertEquals(testPage.getTestName(), createTest.getName(), "Test name in UI doesn't match with added test");
         softAssert.assertEquals(testPage.getMethodName(), createTest.getMethodName(), "Test method name in UI doesn't match with added test");

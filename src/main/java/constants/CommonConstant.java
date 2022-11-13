@@ -12,6 +12,6 @@ public final class CommonConstant {
     public static final String START_TIME_UI_TEXT_REPLACEMENT = "Start time: ";
     public static final String END_TIME_UI_TEXT_REPLACEMENT = "End time: ";
     public static final String ADD_PROJECT_IFRAME_ID = "addProjectFrame";
-    public static final String PROJECT_TESTS_WITHOUT_ID_URL = String.format(ConfigUtil.getSettingsData("uiUrl"),ConfigUtil.getConfidentialData("uiLogin"),ConfigUtil.getConfidentialData("uiPassword")) + "allTests?projectId=";
+    public static final String PROJECT_TESTS_WITHOUT_ID_URL = String.format(ConfigUtil.getSettingsData("uiUrl"), ConfigUtil.getConfidentialData("uiLogin"), ConfigUtil.getConfidentialData("uiPassword")) + "allTests?projectId=";
 }
 

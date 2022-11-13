@@ -9,8 +9,9 @@ import utils.FileUtil;
 public class ProjectListForm extends Form {
     private final ILabel projectList = getElementFactory().getLabel(By.xpath("//div[contains(@class,'list-group')]"), "Project List");
     private final IButton addProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@data-target,'addProject')]"), "Add button");
-    private final String projectBtnXpath  = "//div[contains(@class,'list-group')]//child::a[contains(@class,'list-group-item') and contains(text(),'%s')]";
+    private final String projectBtnXpath = "//div[contains(@class,'list-group')]//child::a[contains(@class,'list-group-item') and contains(text(),'%s')]";
     private IButton projectBtn;
+
     public ProjectListForm() {
         super(By.xpath("//button[contains(@data-target,'addProject')]//ancestor::div[contains(@class,'panel-default')]"), "Project List Form");
     }

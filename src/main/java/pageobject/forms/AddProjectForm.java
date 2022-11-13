@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import utils.ConfigUtil;
 
 public class AddProjectForm extends Form {
-    private final ILabel lblSuccessAlert = getElementFactory().getLabel(By.xpath("//form[@id='addProjectForm']//div[contains(@class,'alert-success')]"), "Success alert");
     private final ILabel successAlert = getElementFactory().getLabel(By.xpath("//form[@id='addProjectForm']//child::div[contains(@class,'alert-success')]"), "Success alert");
     private final ITextBox projectNameInput = getElementFactory().getTextBox(By.id("projectName"), "Input project name Field");
     private final IButton saveProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'btn-primary') and contains(@type,'submit')]"), "Save project button");
@@ -36,7 +35,8 @@ public class AddProjectForm extends Form {
     public void switchToIframe() {
         AqualityServices.getBrowser().getDriver().switchTo().frame(CommonConstant.ADD_PROJECT_IFRAME_ID);
     }
-    public void closeAlertByJSMethod(){
+
+    public void closeAlertByJSMethod() {
         AqualityServices.getBrowser().executeScript(ConfigUtil.getTestData("closePopUp"));
     }
 }

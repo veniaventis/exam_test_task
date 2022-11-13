@@ -2,10 +2,7 @@ package utils;
 
 import aquality.selenium.core.logging.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class CompareUtil {
     public static boolean isEqual(List<String> list, String[][] array) {
