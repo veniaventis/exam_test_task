@@ -1,5 +1,6 @@
 package pageobject.forms;
 
+import aquality.selenium.elements.Attributes;
 import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.IElement;
@@ -27,7 +28,7 @@ public class TestTableForm extends Form {
 
     public int getOpenedProjectId() {
         allTestsBtn.state().waitForClickable();
-        String id = allTestsBtn.getAttribute("href");
+        String id = allTestsBtn.getAttribute(Attributes.HREF.toString());
         return Integer.parseInt(id.replace(CommonConstant.PROJECT_TESTS_WITHOUT_ID_URL, ""));
     }
 
@@ -49,9 +50,5 @@ public class TestTableForm extends Form {
     public List<String> getTestsNameList() {
         testsNameList = getElementFactory().findElements(By.xpath(testsNameListXPath), ElementType.LABEL);
         return testsNameList.stream().map(IElement::getText).collect(Collectors.toList());
-    }
-
-    public void saveScreenShot(byte[] screenshot) {
-        FileUtil.saveScreenShot(screenshot);
     }
 }

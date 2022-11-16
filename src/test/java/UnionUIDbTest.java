@@ -74,7 +74,7 @@ public class UnionUIDbTest extends BaseTest {
         Logger.getInstance().info(String.format("Opening %s project and sending test with attachments to database", randomProjectName));
         mainPage.getProjectList().clickProject(randomProjectName);
         byte[] screenshotBytes = browser.getScreenshot();
-        projectPage.getTestTable().saveScreenShot(screenshotBytes);
+        FileUtil.saveScreenShot(screenshotBytes);
         ProjectTest createTest = new DataBaseRequest().sendNewTest(projectPage.getTestTable().getOpenedProjectId());
         DataBaseUtils.insertTest(createTest);
         Assert.assertTrue(projectPage.getTestTable().idDisplayedTest(createTest.getName()), "Test wasn't added to project");
