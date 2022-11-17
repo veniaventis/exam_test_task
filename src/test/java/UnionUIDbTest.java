@@ -13,9 +13,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobject.MainPage;
 import pageobject.ProjectPage;
-import queries.DataBaseRequest;
 import utils.*;
 
+import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.List;
 
@@ -59,13 +59,13 @@ public class UnionUIDbTest extends BaseTest {
         Logger.getInstance().info("Going on Project page and create a new project..");
         browser.goBack();
         mainPage.getProjectList().clickAddProject();
-        mainPage.getAddProjectForm().switchToIframe();
+        BrowserUtil.switchToIframe();
         Assert.assertTrue(mainPage.getAddProjectForm().state().waitForExist(), "Add form has not been load");
 
         String randomProjectName = RandomStringUtils.randomAlphabetic(CommonConstant.RANDOM_OBJ_LENGTH);
         mainPage.getAddProjectForm().inputProjectNameAndSave(randomProjectName);
         Assert.assertTrue(mainPage.getAddProjectForm().isDisplayedAlert(), "Success Alert doesn't displayed");
-        mainPage.getAddProjectForm().closeAlertByJSMethod();
+        BrowserUtil.closeAlertByJSMethod();
         Assert.assertTrue(mainPage.getAddProjectForm().isNotDisplayed(), "Success alert actually present");
         browser.refresh();
         Assert.assertTrue(mainPage.getProjectList().checkNewProject(randomProjectName), String.format("%s missing on the list", randomProjectName));
@@ -75,7 +75,10 @@ public class UnionUIDbTest extends BaseTest {
         mainPage.getProjectList().clickProject(randomProjectName);
         byte[] screenshotBytes = browser.getScreenshot();
         FileUtil.saveScreenShot(screenshotBytes);
-        ProjectTest createTest = new DataBaseRequest().sendNewTest(projectPage.getTestTable().getOpenedProjectId());
+        ProjectTest createTest = new ProjectTest(this.getClass().getSimpleName(),
+                Thread.currentThread().getStackTrace()[1].getMethodName(), projectPage.getTestTable().getOpenedProjectId(),
+                new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+
         DataBaseUtils.insertTest(createTest);
         Assert.assertTrue(projectPage.getTestTable().idDisplayedTest(createTest.getName()), "Test wasn't added to project");
 

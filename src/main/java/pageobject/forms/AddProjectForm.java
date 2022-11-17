@@ -31,12 +31,4 @@ public class AddProjectForm extends Form {
     public boolean isDisplayedAlert() {
         return successAlert.state().waitForDisplayed();
     }
-
-    public void switchToIframe() {
-        AqualityServices.getBrowser().getDriver().switchTo().frame(CommonConstant.ADD_PROJECT_IFRAME_ID);
-    }
-
-    public void closeAlertByJSMethod() {
-        AqualityServices.getBrowser().executeScript(ConfigUtil.getTestData("closePopUp"));
-    }
 }

@@ -7,15 +7,15 @@ import constants.CommonConstant;
 import org.openqa.selenium.By;
 
 public class TestPage extends Form {
-    private final String testFieldsXPath = "//div[contains(@class,'col-md-4')]//div[contains(@class,'panel-default')][1]//div[contains(@class,'list-group-item')]";
-    private final ILabel projectNameLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[1]/p[contains(@class,'list-group-item-text')]"), "Test's project name");
-    private final ILabel nameLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[2]/p[contains(@class,'list-group-item-text')]"), "Test name");
-    private final ILabel methodNameLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[3]/p[contains(@class,'list-group-item-text')]"), "Test's method name");
-    private final ILabel statusLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[4]/p[contains(@class,'list-group-item-text')]"), "Test's status");
-    private final ILabel startTimeLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[5]/p[contains(@class,'list-group-item-text')][1]"), "Test's start time");
-    private final ILabel endTimeLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[5]/p[contains(@class,'list-group-item-text')][2]"), "Test's end time");
-    private final ILabel environmentLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[6]/p[contains(@class,'list-group-item-text')]"), "Test's environment");
-    private final ILabel browserLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "[7]/p[contains(@class,'list-group-item-text')]"), "Test's browser");
+    private final String testFieldsXPath = "//div[contains(@class,'list-group')]//child::";
+    private final ILabel projectNameLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Project name')]//following-sibling::p"), "Test's project name");
+    private final ILabel nameLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Test name')]//following-sibling::p"), "Test name");
+    private final ILabel methodNameLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Test method name')]//following-sibling::p"), "Test's method name");
+    private final ILabel statusLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Status')]//following-sibling::p"),"Status label");
+    private final ILabel startTimeLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Time info')]//following-sibling::p[contains(text(),'Start time')]"), "Test's start time");
+    private final ILabel endTimeLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Time info')]//following-sibling::p[contains(text(),'End time')]"), "Test's end time");
+    private final ILabel environmentLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Environment')]//following-sibling::p"), "Test's environment");
+    private final ILabel browserLbl = getElementFactory().getLabel(By.xpath(testFieldsXPath + "h4[contains(text(),'Browser')]//following-sibling::p"), "Test's browser");
     private final ILink screenshotLnk = getElementFactory().getLink(By.xpath("//div[contains(@class,'col-md-8')]//table[@class='table']//td/a[1]"), "Screenshot link");
 
 

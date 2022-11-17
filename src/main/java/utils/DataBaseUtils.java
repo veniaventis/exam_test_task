@@ -1,6 +1,7 @@
 package utils;
 
 import aquality.selenium.core.logging.Logger;
+import constants.CommonConstant;
 import constants.DataBaseConstant;
 import lombok.SneakyThrows;
 import models.ProjectTest;
@@ -21,7 +22,7 @@ public class DataBaseUtils {
     public static void insertImageAttach(String contentPath, int testId){
         setUpDriver();
         try(FileInputStream fis = new FileInputStream(contentPath);
-            Connection connection = DriverManager.getConnection(ConfigUtil.getSettingsData("dbUrl"), ConfigUtil.getConfidentialData("dbLogin"), ConfigUtil.getConfidentialData("dbPassword"));) {
+            Connection connection = DriverManager.getConnection(ConfigUtil.getSettingsData("dbUrl"), ConfigUtil.getConfidentialData("dbLogin"), ConfigUtil.getConfidentialData("dbPassword"))) {
             Logger.getInstance().debug("Sending img attachment to database");
             connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(DataBaseConstant.INSERT_IMG_ATTACH_QUERY);
@@ -85,8 +86,8 @@ public class DataBaseUtils {
         } catch (SQLException ex) {
             Logger.getInstance().debug("Test cannot be send",ex);
         }
-        insertImageAttach(test.getScreenshotPath(),test.getId());
-        insertLog(test.getLogPath(), test.getId());
+        insertImageAttach(CommonConstant.TEST_SCREENSHOT_PATH,test.getId());
+        insertLog(CommonConstant.TEST_LOG_PATH, test.getId());
     }
 
     public static String[][] selectTable(String sqlScript){
