@@ -1,1 +1,0 @@
-# exam_test_task
