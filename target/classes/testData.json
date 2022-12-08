@@ -1,5 +1,0 @@
-{
-  "variant": 1,
-  "projectName": "Nexage",
-  "closePopUp": "document.getElementById('addProjectForm').style.display='none';"
-}
