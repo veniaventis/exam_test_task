@@ -50,8 +50,4 @@ public class TestTableForm extends Form {
         testsNameList = getElementFactory().findElements(By.xpath(String.format(tableXpath, TestTableTitles.TEST_NAME.getTitle())), ElementType.LABEL);
         return testsNameList.stream().map(IElement::getText).collect(Collectors.toList());
     }
-
-//    public String getSomeText(){
-//        return
-//    }
 }
